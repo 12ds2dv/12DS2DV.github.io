@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Interface</title>
     <style>
-        /* 引入自定义字体 */
         @font-face {
             font-family: 'Roblox';
             src: url('https://github.com/12ds2dv/12DS2DV.github.io/tree/main/roblox.ttf') format('truetype');
@@ -16,69 +15,111 @@
         body {
             margin: 0;
             padding: 20px;
-            background-color: white;
-            font-family: 'Roblox', sans-serif; /* 使用自定义字体 */
+            background-color: #1A1A1A; /* 深色背景 */
+            font-family: 'Roblox', sans-serif;
+            color: #FFFFFF; /* 全局文字白色 */
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
         .container {
             max-width: 500px;
-            margin: 0 auto;
+            margin: 50px auto; /* 居中并添加顶部间距 */
+            padding: 25px;
+            background-color: #2D2D2D; /* 容器深色背景 */
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* 增强阴影 */
         }
 
         .search-container {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            position: relative;
         }
 
         .user-avatar {
-            width: 40px;
-            height: 40px;
-            margin-right: -1px; /* 消除边框间隙 */
+            width: 44px;
+            height: 44px;
+            border-radius: 6px 0 0 6px; /* 左侧圆角 */
+            background-color: #404040;
+            object-fit: cover;
         }
 
         .input-field {
             flex: 1;
-            height: 40px;
-            padding: 0 12px;
-            border: 1px solid #cccccc;
-            border-radius: 6px;
-            border-left: none; /* 与头像衔接处无边框 */
-            background-color: #6D6D6D;
+            height: 44px;
+            padding: 0 15px;
+            border: 1px solid #4A4A4A;
+            border-left: none;
+            border-radius: 0 6px 6px 0;
+            background-color: #404040;
             color: white;
             font-size: 14px;
-            font-family: 'Roblox', sans-serif; /* 输入框文字使用自定义字体 */
+            font-family: 'Roblox', sans-serif;
             box-sizing: border-box;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #335FFE; /* 聚焦时边框变色 */
         }
 
         .input-field::placeholder {
-            color: #b0b0b0;
-            font-family: 'Roblox', sans-serif; /* 占位符文字使用自定义字体 */
+            color: #999999;
+            font-family: 'Roblox', sans-serif;
+        }
+
+        /* 独立输入框样式调整 */
+        .standalone-input {
+            margin-bottom: 20px;
+            border-left: 1px solid #4A4A4A;
+            border-radius: 6px;
+        }
+
+        .robux-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #383838;
+            border-radius: 6px;
         }
 
         .robux-image {
-            display: block;
-            margin: 15px 0;
-            height: 30px; /* 根据实际图片比例调整 */
+            height: 36px;
+            margin-right: 10px;
+        }
+
+        .robux-label {
+            font-size: 16px;
+            color: #FFD700; /* 金色文字配合Robux */
         }
 
         .give-button {
             width: 100%;
-            height: 40px;
+            height: 46px;
             background-color: #335FFE;
             color: white;
             border: none;
             border-radius: 6px;
             font-size: 16px;
             font-weight: 500;
-            font-family: 'Roblox', sans-serif; /* 按钮文字使用自定义字体 */
+            font-family: 'Roblox', sans-serif;
             cursor: pointer;
-            box-shadow: 0 0 8px rgba(51, 95, 254, 0.5); /* 微发光效果 */
-            transition: box-shadow 0.2s ease;
+            box-shadow: 0 0 8px rgba(51, 95, 254, 0.5);
+            transition: all 0.2s ease;
         }
 
         .give-button:hover {
             box-shadow: 0 0 12px rgba(51, 95, 254, 0.7);
+            background-color: #4264FF;
+            transform: translateY(-1px); /* 轻微上浮效果 */
+        }
+
+        .give-button:active {
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -90,14 +131,17 @@
             <input type="text" id="searchBox" class="input-field" placeholder="Search username...">
         </div>
 
-        <!-- 输入框 -->
-        <input type="text" class="input-field" placeholder="Enter something...">
+        <!-- 独立输入框 -->
+        <input type="text" class="input-field standalone-input" placeholder="Enter something...">
 
-        <!-- Robux图片 -->
-        <img class="robux-image" src="https://github.com/12ds2dv/12DS2DV.github.io/tree/main/robux@3x.png" alt="Robux">
+        <!-- Robux区域（带标签） -->
+        <div class="robux-container">
+            <img class="robux-image" src="https://github.com/12ds2dv/12DS2DV.github.io/tree/main/robux@3x.png" alt="Robux">
+            <span class="robux-label">Robux Balance</span>
+        </div>
 
         <!-- 按钮 -->
-        <button class="give-button">give</button>
+        <button class="give-button">Give</button>
     </div>
 
     <script>
@@ -111,8 +155,10 @@
             
             if (searchValue) {
                 // 有搜索内容时执行日志输出
-                const mockUsername = 'example_user'; // 实际应用中替换为真实用户名
+                const mockUsername = 'example_user';
                 console.log(`user scratch username: ${mockUsername}`);
+                // 实际应用中可以在这里更新头像
+                // userAvatar.src = "新头像URL";
             } else {
                 // 无搜索内容时恢复默认头像
                 userAvatar.src = defaultAvatar;
