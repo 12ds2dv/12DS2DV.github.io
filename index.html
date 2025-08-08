@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Interface</title>
     <style>
+        /* 确保字体声明语法正确，路径正确 */
         @font-face {
             font-family: 'Roblox';
-            src: url('./Roblox.ttf') format('truetype'); /* 相对路径引用字体 */
+            src: url('./Roblox.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
@@ -15,20 +16,20 @@
         body {
             margin: 0;
             padding: 20px;
-            background-color: #1A1A1A; /* 深色背景 */
-            font-family: 'Roblox', sans-serif;
-            color: #FFFFFF; /* 全局文字白色 */
+            background-color: #1A1A1A;
+            font-family: 'Roblox', sans-serif; /* 若字体加载失败，会 fallback 到 sans-serif */
+            color: #FFFFFF;
             min-height: 100vh;
             box-sizing: border-box;
         }
 
         .container {
             max-width: 500px;
-            margin: 50px auto; /* 居中并添加顶部间距 */
+            margin: 50px auto;
             padding: 25px;
-            background-color: #2D2D2D; /* 容器深色背景 */
+            background-color: #2D2D2D;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* 增强阴影 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .search-container {
@@ -41,7 +42,7 @@
         .user-avatar {
             width: 44px;
             height: 44px;
-            border-radius: 6px 0 0 6px; /* 左侧圆角 */
+            border-radius: 6px 0 0 6px;
             background-color: #404040;
             object-fit: cover;
         }
@@ -63,7 +64,7 @@
 
         .input-field:focus {
             outline: none;
-            border-color: #335FFE; /* 聚焦时边框变色 */
+            border-color: #335FFE;
         }
 
         .input-field::placeholder {
@@ -71,7 +72,6 @@
             font-family: 'Roblox', sans-serif;
         }
 
-        /* 独立输入框样式调整 */
         .standalone-input {
             margin-bottom: 20px;
             border-left: 1px solid #4A4A4A;
@@ -94,7 +94,7 @@
 
         .robux-label {
             font-size: 16px;
-            color: #FFD700; /* 金色文字配合Robux */
+            color: #FFD700;
         }
 
         .give-button {
@@ -115,7 +115,7 @@
         .give-button:hover {
             box-shadow: 0 0 12px rgba(51, 95, 254, 0.7);
             background-color: #4264FF;
-            transform: translateY(-1px); /* 轻微上浮效果 */
+            transform: translateY(-1px);
         }
 
         .give-button:active {
@@ -125,42 +125,32 @@
 </head>
 <body>
     <div class="container">
-        <!-- 搜索区域：用户头像 + 搜索框 -->
         <div class="search-container">
-            <img id="userAvatar" class="user-avatar" src="./AddFriend@2x.png" alt="User Avatar"> <!-- 相对路径引用头像 -->
+            <img id="userAvatar" class="user-avatar" src="./AddFriend@2x.png" alt="User Avatar">
             <input type="text" id="searchBox" class="input-field" placeholder="Search username...">
         </div>
 
-        <!-- 独立输入框 -->
         <input type="text" class="input-field standalone-input" placeholder="Enter something...">
 
-        <!-- Robux区域（带标签） -->
         <div class="robux-container">
-            <img class="robux-image" src="./robux@3x.png" alt="Robux"> <!-- 相对路径引用Robux图片 -->
+            <img class="robux-image" src="./robux@3x.png" alt="Robux">
             <span class="robux-label">Robux Balance</span>
         </div>
 
-        <!-- 按钮 -->
         <button class="give-button">Give</button>
     </div>
 
     <script>
-        // 搜索框功能实现
         const searchBox = document.getElementById('searchBox');
         const userAvatar = document.getElementById('userAvatar');
-        const defaultAvatar = './AddFriend@2x.png'; // 相对路径引用默认头像
+        const defaultAvatar = './AddFriend@2x.png';
 
         searchBox.addEventListener('input', function() {
             const searchValue = this.value.trim();
-            
             if (searchValue) {
-                // 有搜索内容时执行日志输出
                 const mockUsername = 'example_user';
                 console.log(`user scratch username: ${mockUsername}`);
-                // 实际应用中可以在这里更新头像
-                // userAvatar.src = "新头像URL";
             } else {
-                // 无搜索内容时恢复默认头像
                 userAvatar.src = defaultAvatar;
             }
         });
